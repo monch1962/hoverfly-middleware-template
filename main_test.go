@@ -27,13 +27,26 @@ func TestNothing(t *testing.T) {
 	t.Log("Check this test for how to use each of the parameters inside middleware payload")
 }
 
+// Use the following test as a template and copy/paste/rename/adapt it to create however many test cases
+// you need to adequately test your middleware
 func TestPayload1(t *testing.T) {
+
+	// Declare two RequestResponsePairViewV1 variables - one to hold the request payload to be transformed, and another to hold the expected
+	// response payload after transformation. We're going to transform the 1st and compare with the 2nd
 	var payload RequestResponsePairViewV1
 	var expected RequestResponsePairViewV1
 
+	// Set all the request parameters prior to applying the middleware transformation
+	//payload.Request.Body = ...
+
 	actual := transform(payload)
 
-	expected.Response.Body = "abc123"
+	// Set all the expected response parameters after the payload is transformed
+	//expected.Response.Body = "abc123"
+	//expected.Response.Status = 200
+	//expected.Response.Headers = ...
+
+	// Now compare them, and log any discrepancies
 	if actual.Response.Body != expected.Response.Body {
 		t.Fatalf("Expected Response.Body (%v) doesn't match Actual Response.Body: (%s)", expected.Response.Body, actual.Response.Body)
 	}
