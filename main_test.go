@@ -21,8 +21,20 @@ func TestNothing(t *testing.T) {
 
 	payload.Response.Body = "abc" + "def" + fmt.Sprint(4) + *payload.Request.Body
 	payload.Response.Status = 200
-	payload.Response.Headers = map[string][]string{"header": []string{"value"}}
+	payload.Response.Headers = map[string][]string{"header": {"value"}}
 	payload.Response.EncodedBody = false
 
 	t.Log("Check this test for how to use each of the parameters inside middleware payload")
+}
+
+func TestPayload1(t *testing.T) {
+	var payload RequestResponsePairViewV1
+	var expected RequestResponsePairViewV1
+
+	actual := transform(payload)
+
+	expected.Response.Body = "abc123"
+	if actual.Response.Body != expected.Response.Body {
+		t.Fatalf("Expected Response.Body (%v) doesn't match Actual Response.Body: (%s)", expected.Response.Body, actual.Response.Body)
+	}
 }

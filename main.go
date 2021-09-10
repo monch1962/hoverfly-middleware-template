@@ -50,7 +50,7 @@ func transform(payload RequestResponsePairViewV1) RequestResponsePairViewV1 {
 
 	payload.Response.Status = 200
 
-	payload.Response.Headers = map[string][]string{"header": []string{"value"}}
+	payload.Response.Headers = map[string][]string{"header": {"value"}}
 	payload.Response.EncodedBody = false
 
 	return payload
