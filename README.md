@@ -25,7 +25,7 @@ At an enterprise level, this gives you far better control over your software sup
 
 ## TODO
 
-- Add some sort of test cases that make sense
+- ~~Add some sort of test cases that make sense~~
 - Create a Dockerfile to allow middleware to be built without having to install Go compiler on your laptop
 - Add instructions on how to incorporate into the standard Hoverfly Docker image
 - Add instructions on how to run your middleware inside the Hoverfly Docker image
