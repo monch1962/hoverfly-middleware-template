@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+//
+func Compare(t *testing.T, expected RequestResponsePairViewV1, actual RequestResponsePairViewV1) {
+	ar := actual.Response
+	er := expected.Response
+	var ok = true
+	if ar.Body != er.Body {
+		ok = false
+		t.Logf("Expected Response.Body (%v) doesn't match Actual Response.Body: (%s)", er.Body, ar.Body)
+	}
+	if ar.Status != er.Status {
+		ok = false
+		t.Logf("Expected Response.Status (%d) doesn't match Actual Response.Status: (%d)", er.Status, ar.Status)
+	}
+	if !ok {
+		t.Fail()
+	}
+}
+
 func TestNothing(t *testing.T) {
 	var payload RequestResponsePairViewV1
 	sample_req_body := "abc123"
@@ -34,20 +52,21 @@ func TestPayload1(t *testing.T) {
 	// Declare two RequestResponsePairViewV1 variables - one to hold the request payload to be transformed, and another to hold the expected
 	// response payload after transformation. We're going to transform the 1st and compare with the 2nd
 	var payload RequestResponsePairViewV1
-	var expected RequestResponsePairViewV1
 
 	// Set all the request parameters prior to applying the middleware transformation
 	//payload.Request.Body = ...
 
-	actual := transform(payload)
+	// Now copy the input payload to expected, so we know only those fields that have been changed will be different
+	expected := payload
+
+	// Now run the middleware against the payload, and save the result into transformed
+	transformed := transform(payload)
 
 	// Set all the expected response parameters after the payload is transformed
 	//expected.Response.Body = "abc123"
-	//expected.Response.Status = 200
+	expected.Response.Status = 200
 	//expected.Response.Headers = ...
 
-	// Now compare them, and log any discrepancies
-	if actual.Response.Body != expected.Response.Body {
-		t.Fatalf("Expected Response.Body (%v) doesn't match Actual Response.Body: (%s)", expected.Response.Body, actual.Response.Body)
-	}
+	// Now compare them
+	Compare(t, expected, transformed)
 }

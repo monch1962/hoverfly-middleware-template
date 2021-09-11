@@ -3,7 +3,7 @@ Sample Hoverfly middleware template written in Go
 
 This is a Go template for creating Hoverfly (https://hoverfly.io) middleware
 
-**The only code you should need to change is the `transform` function in `main.go`. In this template it contains some sample values that you should replace with your own middleware logic**
+**The only code you should need to change is the `transform` function in `main.go`, and write any functional tests you like in `main_test.go` to confirm your `transform` middleware is doing what it should. This template contains some sample code that you should replace with your own test cases & middleware logic**
 
 Once you've finished implementing your middleware logic, you should run `go build` which will create a file named `middleware`. The `middleware` file is the file you want to use as middleware in your Hoverfly stub.
 
@@ -22,6 +22,24 @@ A big advantage of using Go is that it creates statically-linked, standalone exe
 This makes it easier to use the standard Hoverfly Docker image at https://hub.docker.com/r/spectolabs/hoverfly/ when you need to implement middleware, rather than build your own bespoke Hoverfly Docker image containing Python or Javascript runtimes, plus keep that image updated. You can load your middleware via a volume mount, then load it at runtime when the container starts.
 
 At an enterprise level, this gives you far better control over your software supply chain. You can copy the standard Hoverfly Docker image into a Docker registry controlled by the enterprise, rather than build your own Hoverfly image containing all the files required to run your (Python or JavaScript) middleware then keep it updated over time. When the standard Hoverfly Docker image is updated, you can simply update the copy in your enterprise's Docker registry at your convenience and keep working.
+
+## Getting started
+
+### Case 1: you've got a Go compiler installed
+
+#### Testing
+
+I tend to use Test-Driven Development (TDD) so I've made it easy to implement. You should be able to copy/paste/rename/change the `TestPayload1` test case in `main_test.go` to construct however many test cases you need to satisfy yourself that your middleware is functionally OK.
+
+When you've finished, you can run
+
+`$ go test`
+
+and all the test cases in `*_test.go` files will execute.
+
+Once you're written your test cases, you can start changing your middleware to get all the tests to pass
+
+### Case 2: you don't have a Go compiler installed, but you can run Docker
 
 ## TODO
 
