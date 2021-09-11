@@ -12,11 +12,11 @@ func Compare(t *testing.T, expected RequestResponsePairViewV1, actual RequestRes
 	var ok = true
 	if ar.Body != er.Body {
 		ok = false
-		t.Logf("Expected Response.Body (%v) doesn't match Actual Response.Body: (%s)", er.Body, ar.Body)
+		t.Logf("expected Response.Body (%v) doesn't match actual Response.Body: (%s)", er.Body, ar.Body)
 	}
 	if ar.Status != er.Status {
 		ok = false
-		t.Logf("Expected Response.Status (%d) doesn't match Actual Response.Status: (%d)", er.Status, ar.Status)
+		t.Logf("expected Response.Status (%d) doesn't match actual Response.Status: (%d)", er.Status, ar.Status)
 	}
 	if !ok {
 		t.Fail()

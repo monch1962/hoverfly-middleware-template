@@ -3,7 +3,7 @@ Sample Hoverfly middleware template written in Go
 
 This is a Go template for creating Hoverfly (https://hoverfly.io) middleware
 
-**The only code you should need to change is the `transform` function in `main.go`, and write any functional tests you like in `main_test.go` to confirm your `transform` middleware is doing what it should. This template contains some sample code that you should replace with your own test cases & middleware logic**
+**The only code you should need to change is the `transform` function in `middleware.go`, and write any functional tests you like in `middleware_test.go` to confirm your `transform` middleware is doing what it should. This template contains some sample code that you should replace with your own test cases & middleware logic**
 
 Once you've finished implementing your middleware logic, you should run `go build` which will create a file named `middleware`. The `middleware` file is the file you want to use as middleware in your Hoverfly stub.
 
@@ -29,7 +29,7 @@ At an enterprise level, this gives you far better control over your software sup
 
 #### Testing
 
-I tend to use Test-Driven Development (TDD) so I've made it easy to implement. You should be able to copy/paste/rename/change the `TestPayload1` test case in `main_test.go` to construct however many test cases you need to satisfy yourself that your middleware is functionally OK.
+I tend to use Test-Driven Development (TDD) so I've made it easy to implement. You should be able to copy/paste/rename/change the `TestPayload1` test case in `middleware_test.go` to construct however many test cases you need to satisfy yourself that your middleware is functionally OK.
 
 When you've finished, you can run
 
@@ -38,6 +38,20 @@ When you've finished, you can run
 and all the test cases in `*_test.go` files will execute.
 
 Once you're written your test cases, you can start changing your middleware to get all the tests to pass
+
+#### Building middleware
+
+To compile a version of your middleware that will run on your own system
+
+`$ go build -o middleware middleware.go`
+
+This will create a `./middleware/middleware` executable file that you can run from your command line
+
+To build a version that will run inside a Docker container
+
+`$ GOOS=linux GOARCH=amd64 go build -o middleware middleware.go`
+
+This will also create a `./middleware/middleware` executable file, but this one will run under linux/amd64 (i.e. Linux or a Docker container). You can mount the `./middleware` directory as a Docker volume for the Hoverfly container image if you choose to do so
 
 ### Case 2: you don't have a Go compiler installed, but you can run Docker
 
